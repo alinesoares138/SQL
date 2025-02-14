@@ -1,3 +1,5 @@
+### A criação do projeto final começou aqui
+
 CREATE DATABASE analysis_database;
 CREATE DATABASE IF NOT EXISTS analysis_database;
 
