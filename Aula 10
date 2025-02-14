@@ -1,0 +1,27 @@
+/* com base do total de pagamentos, dividir 4 grupos do maior pagador ao menor
+incluir: email, classificação, total_pago */
+
+SELECT PAYMENT.CUSTOMER_ID, 
+	CUSTOMER.EMAIL,
+    AMOUNT AS total_pago, 
+    NTILE(4) OVER (ORDER BY AMOUNT DESC) as grupos,
+    CASE 
+        WHEN AMOUNT >= 3 THEN 'Iniciante'
+        WHEN AMOUNT < 3 AND AMOUNT >= 6 THEN 'Ocasional'
+        WHEN AMOUNT < 6 AND AMOUNT >= 9 THEN 'Fiel'
+        WHEN AMOUNT < 9 AND AMOUNT >= 12 THEN 'Especial' 
+        ELSE 'Outros'
+    END AS classificacao
+FROM SAKILA.PAYMENT
+INNER JOIN SAKILA.CUSTOMER ON PAYMENT.CUSTOMER_ID = CUSTOMER.CUSTOMER_ID;
+
+/* qual foi a primeira loja a atingir 10k no mês de julho/2025 */
+
+SELECT INVENTORY.STORE_ID,
+	SUM(PAYMENT.AMOUNT) AS MONTANTE,
+    CAST(PAYMENT_DATE AS DATE) AS data_pg
+FROM SAKILA.PAYMENT
+INNER JOIN SAKILA.INVENTORY
+WHERE PAYMENT_DATE BETWEEN '2005-07-01' AND '2005-07-31'
+GROUP BY INVENTORY.STORE_ID, PAYMENT.AMOUNT, PAYMENT_DATE
+ORDER BY MONTANTE DESC;
