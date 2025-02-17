@@ -20,7 +20,7 @@ GROUP BY film_id
 ORDER BY UNIDADES_DISPONÍVEIS DESC;
 
 /* usando subconsultas e os resultados 1 e 2, 
-responda: os mais alugados possuem mais unidades disponívei? SIM!*/
+responda: os mais alugados possuem mais unidades disponíveis? SIM!*/
 
 WITH table1 AS
 (SELECT FILM_ID, COUNT(FILM_ID) AS FREQUENCIA_FILM
