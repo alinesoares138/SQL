@@ -1,29 +1,27 @@
 ### A criação do projeto final começou aqui
 
-CREATE DATABASE analysis_database;
-CREATE DATABASE IF NOT EXISTS analysis_database;
-
-USE analysis_database;
-
-CREATE TABLE regioes (
-	id_regioes INT PRIMARY KEY AUTO_INCREMENT,
-    regioes TEXT
+-- Tabela de Ano
+CREATE DATABASE pricingInflation;
+CREATE TABLE ano (
+    id_ano INT PRIMARY KEY AUTO_INCREMENT,
+    ano INT NOT NULL UNIQUE
 );
 
-CREATE TABLE desemprego (
-	id_taxa INT PRIMARY KEY AUTO_INCREMENT,
-	ano INT NOT NULL,
-	trimestre INT CHECK (trimestre BETWEEN 1 AND 4),
-    taxa_desemprego FLOAT NOT NULL
+-- Tabela de Mês
+CREATE TABLE mes (
+    id_mes INT PRIMARY KEY AUTO_INCREMENT,
+    mes_nome VARCHAR(20) NOT NULL,
+    mes_numero INT NOT NULL
 );
 
-SELECT * FROM analysis_database.regioes;
-
-
-CREATE TABLE renda_media (
-	id_renda INT PRIMARY KEY AUTO_INCREMENT,
-	ano INT NOT NULL,
-	trimestre INT CHECK (trimestre BETWEEN 1 AND 4),
-    taxa_renda_media FLOAT NOT NULL,
-    uf TEXT
+-- Tabela de Índices de Preços (IPCA, INPC, IGP-M)
+CREATE TABLE indices_precos (
+    id_indice INT PRIMARY KEY AUTO_INCREMENT,
+    id_ano INT,
+    id_mes INT,
+    ipca FLOAT,
+    inpc FLOAT,
+    igp_m FLOAT,
+    FOREIGN KEY (id_ano) REFERENCES ano(id_ano),
+    FOREIGN KEY (id_mes) REFERENCES mes(id_mes)
 );
